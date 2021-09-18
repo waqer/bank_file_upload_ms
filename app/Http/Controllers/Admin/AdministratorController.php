@@ -55,7 +55,7 @@ class AdministratorController extends Controller
         $data=([
             'password' => Hash::make($request->password),
             'is_admin' => 1,
-            'status' => 1,
+            'status' => $request->status,
             'created_by' =>$session_user,
             'edited_by' =>$session_user,
             'authorized_by' =>$request->authorized_by,

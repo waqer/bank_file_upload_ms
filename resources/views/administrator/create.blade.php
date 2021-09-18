@@ -66,9 +66,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="admin_status">admin_status</label>
-                            <input type="text" name="admin_status" class="form-control @error('admin_status') is-invalid @enderror" value="{{ old('admin_status', '' ) }} "/>
-                            @error('admin_status')
+                            <label for="status">admin_status</label>
+                            <input type="text" name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status', '' ) }} "/>
+                            @error('status')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
