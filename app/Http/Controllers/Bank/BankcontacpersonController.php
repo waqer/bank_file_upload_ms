@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Bank;
 use App\Applicationuser;
 use App\Bank;
+use App\Bank_contact_person;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ use Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class BankinfoController extends Controller
+class BankcontacpersonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,15 +21,6 @@ class BankinfoController extends Controller
     public function index()
     {
         //
-        $client_id=Session::get('client_id');
-        $contact_persons=Applicationuser::where('is_bank', 1)
-        ->where('client_id', $client_id)
-       // ->where('is_parent', 1)
-        ->paginate(10);
-
-        return view('bank.index', [
-            'results' => $contact_persons
-        ]);
     }
 
     /**
@@ -38,8 +30,9 @@ class BankinfoController extends Controller
      */
     public function create()
     {
+    
         // create Bank account 
-        return view('bank.create');
+        return view('bankcontactperson.create');
     }
 
     /**
@@ -53,12 +46,12 @@ class BankinfoController extends Controller
         //
 
         
-
+       // dd($request->all());
         $session_user=Session::get('user_id');
 
         
         $data=([
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'is_bank' => 1,
             'is_active_status' => $request->is_active_status,
             'created_by' =>$session_user,
@@ -69,7 +62,7 @@ class BankinfoController extends Controller
 
             "bank_name" => $request->bank_name,
             "client_id" => $request->client_id,
-            // "bank_contactperson_name" => $request->bank_contactperson_name,
+            "bank_contactperson_name" => $request->bank_contactperson_name,
             "reg_no" => $request->reg_no,
             "bank_location" => $request->bank_location,
             "bank_website" => $request->bank_website,
@@ -77,12 +70,21 @@ class BankinfoController extends Controller
             "bank_phone" => $request->bank_phone,
             "bank_email" => $request->bank_email,
 
+            "bank_contactperson_userid" => $request->bank_contactperson_userid, // later
+            "bank_contactperson_phone" => $request->bank_contactperson_phone,
+            "bank_contactperson_email" => $request->bank_contactperson_email,
+            "bank_contactperson_designation" => $request->bank_contactperson_designation, 
+            "bank_contactperson_department" => $request->bank_contactperson_department,
+            "bank_contactperson_nid" => $request->bank_contactperson_nid,
+            "bank_contactperson_branch" => $request->bank_contactperson_branch,
+            "bank_contactperson_location" => $request->bank_contactperson_location,
+
             'remember_token' => Str::random(10),
             "created_at" => now(),    
         ]);
 
+     
         $new_user_id=Applicationuser::create($data)->id;
-       // dd($new_user_id);
 
         
     //    Administrator::create([
@@ -118,12 +120,22 @@ class BankinfoController extends Controller
      * @param  \App\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bank $bank)
+    public function edit( $contactperson)
     {
         //
+       // dd($contactperson);
+
+       // $session_user=Session::get('user_id');
+       
+        $user_details=Applicationuser::where('user_id',$contactperson)->first();
+        
+      
+
+        return view('bankcontactperson.edit', [
+            'results' => $user_details
+        ]);
 
        
-
     }
 
     /**
@@ -133,9 +145,35 @@ class BankinfoController extends Controller
      * @param  \App\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bank $bank)
+    public function update(Request $request, Bank_contact_person $bank)
     {
         //
+
+        dd($request->all());
+        $session_user=Session::get('user_id');
+
+        $data=$request->validate([
+            'admin_name' => 'required',
+            'admin_nid' => 'required',
+            'admin_phone_no' => 'required',
+            'admin_email' => 'required',
+            'admin_designation' => 'required',
+            'is_active_status' => 'required',
+            'edited_by' =>$session_user, //pending
+            'authorized_by' => 'required',
+            'password' => 'required',
+            
+        ]);
+        
+
+
+  
+
+       
+        Applicationuser::where('user_id',$administrator)->update( $data );
+
+        return redirect()->route('Admin.index')->with('status', 'Story Updated Successfully!');
+
     }
 
     /**
@@ -144,7 +182,7 @@ class BankinfoController extends Controller
      * @param  \App\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bank $bank)
+    public function destroy(Bank_contact_person $bank)
     {
         //
     }

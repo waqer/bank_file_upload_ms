@@ -55,28 +55,34 @@ class AdministratorController extends Controller
         $data=([
             'password' => Hash::make($request->password),
             'is_admin' => 1,
-            'status' => $request->status,
+            'is_active_status' => $request->is_active_status,
             'created_by' =>$session_user,
             'edited_by' =>$session_user,
             'authorized_by' =>$request->authorized_by,
+
+                //**Admin part***//
+
+            "admin_name" => $request->admin_name,
+            "admin_nid" => $request->admin_nid,
+            "admin_phone_no" => $request->admin_phone_no,
+            "admin_email" => $request->admin_email,
+            "admin_designation" => $request->admin_designation,
+
             'remember_token' => Str::random(10),
             "created_at" => now(),    
         ]);
         $new_user_id=Applicationuser::create($data)->id;
 
         
-       Administrator::create([
-        "user_id" => $new_user_id, 
-        "admin_name" => $request->admin_name,
-        "admin_nid" => $request->admin_nid,
-        "admin_phone_no" => $request->admin_phone_no,
-        "admin_email" => $request->admin_email,
-        "admin_designation" => $request->admin_designation,
-        "admin_status" => $request->admin_status,
-        'created_by' =>$session_user,
-        'edited_by' =>$session_user,
+    //    Administrator::create([
+    //     "user_id" => $new_user_id, 
+        
+     
+    //     "status" => $request->status,
+    //     // 'created_by' =>$session_user,
+    //     // 'edited_by' =>$session_user,
       
-        ]);
+    //     ]);
 
        
 
@@ -105,7 +111,7 @@ class AdministratorController extends Controller
     {
         //
         $session_user=Session::get('user_id');
-        
+       
         $user_details=Applicationuser::where('user_id',$session_user)->first();
         
 
@@ -128,26 +134,25 @@ class AdministratorController extends Controller
 
         $session_user=Session::get('user_id');
 
-        $data = $request->validate([
+        $data=$request->validate([
             'admin_name' => 'required',
             'admin_nid' => 'required',
             'admin_phone_no' => 'required',
             'admin_email' => 'required',
             'admin_designation' => 'required',
-            'admin_status' => 'required',
-            'created_by' =>$session_user,
-            'edited_by' =>$session_user,
-        ]);
-
-       
-        $data_cred = $request->validate([
+            'is_active_status' => 'required',
+            'edited_by' =>$session_user, //pending
             'authorized_by' => 'required',
             'password' => 'required',
+            
         ]);
+        
 
-        //dd($data);
-        Administrator::where('user_id',$administrator)->update( $data );
-        Applicationuser::where('user_id',$administrator)->update( $data_cred );
+
+  
+
+       
+        Applicationuser::where('user_id',$administrator)->update( $data );
 
         return redirect()->route('Admin.index')->with('status', 'Story Updated Successfully!');
     }
@@ -161,7 +166,7 @@ class AdministratorController extends Controller
     public function destroy( $administrator)
     {
         //
-        Administrator::where('user_id',$administrator)->delete();
+   
         Applicationuser::where('user_id',$administrator)->delete();
         return redirect()->route('Admin.index')->with('status', 'Story Deleted Successfully!');
 

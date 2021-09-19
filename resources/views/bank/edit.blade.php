@@ -12,13 +12,14 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('Admin.store') }}" method="POST">
+                    <form action="{{ route('Admin.update', [$results->user_id]) }}" method="POST">
                         @csrf
+                        @method('PUT')
 
                         <div class="form-group">
-                            <label for="admin_name">Admin Name</label>
-                            <input type="text" name="admin_name" class="form-control @error('admin_name') is-invalid @enderror" value="{{ old('admin_name', '' ) }} "/>
-                            @error('admin_name')
+                            <label for="bank_name">Bank Name</label>
+                            <input type="text" name="bank_name" class="form-control @error('bank_name') is-invalid @enderror" value="{{ old('bank_name', '' ) }} "/>
+                            @error('bank_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
@@ -26,9 +27,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="admin_nid">Admin NID</label>
-                            <input type="text" name="admin_nid" class="form-control @error('admin_nid') is-invalid @enderror" value="{{ old('admin_nid', '' ) }}"/>
-                            @error('admin_nid')
+                            <label for="client_id">client_id</label>
+                            <input type="text" name="client_id" class="form-control @error('client_id') is-invalid @enderror" value="{{ old('client_id', '' ) }}"/>
+                            @error('client_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="reg_no">reg_no</label>
+                            <input type="text" name="reg_no" class="form-control @error('reg_no') is-invalid @enderror" value="{{ old('reg_no', '' ) }}"/>
+                            @error('reg_no')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
@@ -36,9 +48,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="admin_phone_no">Admin Phone No</label>
-                            <input type="text" name="admin_phone_no" class="form-control @error('admin_phone_no') is-invalid @enderror" value="{{ old('admin_phone_no', '' ) }} "/>
-                            @error('admin_phone_no')
+                            <label for="bank_location">bank_location</label>
+                            <input type="text" name="bank_location" class="form-control @error('bank_location') is-invalid @enderror" value="{{ old('bank_location', '' ) }}"/>
+                            @error('bank_location')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
@@ -46,9 +58,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="admin_email">admin_email</label>
-                            <input type="text" name="admin_email" class="form-control @error('admin_email') is-invalid @enderror" value="{{ old('admin_email', '' ) }} "/>
-                            @error('admin_email')
+                            <label for="bank_website">bank_website</label>
+                            <input type="text" name="bank_website" class="form-control @error('bank_website') is-invalid @enderror" value="{{ old('bank_website', '' ) }}"/>
+                            @error('bank_website')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
@@ -56,9 +68,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="admin_designation">admin_designation</label>
-                            <input type="text" name="admin_designation" class="form-control @error('admin_designation') is-invalid @enderror" value="{{ old('admin_designation', '' ) }} "/>
-                            @error('admin_designation')
+                            <label for="bank_fax">bank_fax</label>
+                            <input type="text" name="bank_fax" class="form-control @error('bank_fax') is-invalid @enderror" value="{{ old('bank_fax', '' ) }}"/>
+                            @error('bank_fax')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
@@ -66,7 +78,30 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="is_active_status">admin_status</label>
+                            <label for="bank_phone">bank_phone</label>
+                            <input type="text" name="bank_phone" class="form-control @error('bank_phone') is-invalid @enderror" value="{{ old('bank_phone', '' ) }}"/>
+                            @error('bank_phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bank_email">bank_email</label>
+                            <input type="text" name="bank_email" class="form-control @error('bank_email') is-invalid @enderror" value="{{ old('bank_email', '' ) }}"/>
+                            @error('bank_email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label for="is_active_status">status</label>
                             <input type="text" name="is_active_status" class="form-control @error('is_active_status') is-invalid @enderror" value="{{ old('is_active_status', '' ) }} "/>
                             @error('is_active_status')
                                 <span class="invalid-feedback" role="alert">
@@ -95,7 +130,7 @@
                             @enderror
                         </div>
 
-                        <button class="btn btn-primary">Add</button>
+                        <button class="btn btn-primary">Save</button>
                     </form>
 
                 </div>

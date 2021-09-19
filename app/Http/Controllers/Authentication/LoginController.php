@@ -34,7 +34,8 @@ class LoginController extends Controller
         }
 
         else if($user['is_bank']==1){
-            dd("bank");
+            Session::put('client_id', $user->client_id);
+            return redirect()->route('bank.index');
         }
 
         else if($user['is_parent']==1){

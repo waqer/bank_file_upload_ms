@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">List Of Admins
+                <div class="card-header">List Of Contact person lists
 
-                    <a href=" {{ route('Admin.create') }}" class="float-right">Add Admin</a>
+                    <a href=" {{ route('bankcontactperson.create') }}" class="float-right">Add Contact Person</a>
                 </div>
                
                 <div class="card-body ">
@@ -17,14 +17,14 @@
                             <tr>
 
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>NID</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Designation</th>
-                                <th>Status</th>
-                                <th>Edited By</th>
-                                <th>Created BY</th>
+                                <th>bank_name</th>
+                                <th>client_id</th>
+                                <th>reg_no</th>
+                                <th>bank_location</th>
+                                <th>bank_website</th>
+                                <th>bank_fax</th>
+                                <th>bank_phone</th>
+                                <th>bank_email</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -36,35 +36,36 @@
                                         {{ $result->user_id }}
                                     </td>
                                     <td>
-                                        {{ $result->admin_name}}
+                                        {{ $result->bank_name }}
                                     </td>
                                     <td>
-                                        {{ $result->admin_nid}}
+                                        {{ $result->client_id}}
                                     </td>
                                     <td>
-                                        {{ $result->admin_phone_no}}
+                                        {{ $result->reg_no}}
                                     </td>
                                     <td>
-                                        {{ $result->admin_email}}
+                                        {{ $result->bank_location}}
                                     </td>
                                     <td>
-                                        {{ $result->admin_designation}}
+                                        {{ $result->bank_website}}
+                                    </td>
+                                    <td>
+                                        {{ $result->bank_fax}}
                                     </td>
                                     
                                     <td>
-                                        {{ $result->is_active_status}}
+                                        {{ $result->bank_phone}}
                                     </td>
                                     <td>
-                                        {{ $result->edited_by}}
+                                        {{ $result->bank_email}}
                                     </td>
-                                    <td>
-                                        {{ $result->created_by}}
-                                    </td>
+                                   
                                     
                                    
                                     <td>
-                                        <a href="{{ route('Admin.edit', [$result->user_id] ) }}" class="btn btn-secondary">Edit</a>                          
-                                        <form action=" {{ route('Admin.destroy', [$result->user_id]) }}" method="POST" style="display:inline-block">
+                                        <a href="{{ route('bankcontactperson.edit', [$result->user_id] ) }}" class="btn btn-secondary">Edit</a>                          
+                                        <form action=" {{ route('bankcontactperson.destroy', [$result->user_id]) }}" method="POST" style="display:inline-block">
                                             @method('DELETE')
                                             @csrf
                                             <button class="btn btn-sm btn-danger">Delete</button>
@@ -78,7 +79,7 @@
                     {{ $results->links() }}
                     <div class="d-flex justify-content-center">
 
-                        <a href="{{ route('bank.create') }}" class="btn btn-primary">ADD Bank</a>
+                        <a href="{{ route('bank.create') }}" class="btn btn-primary">ADD Sub Bank User</a>
                       </div>
                    
                 </div>
