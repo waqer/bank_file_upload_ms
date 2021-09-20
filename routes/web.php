@@ -23,5 +23,9 @@ Route::get('/data', 'TestController@test');
 Route::post('/login', 'Authentication\LoginController@index')->name('login');
 Route::resource('Admin','Admin\AdministratorController'); 
 Route::resource('bank','Bank\BankinfoController'); 
-Route::resource('bankcontactperson','Bank\BankcontacpersonController'); 
+Route::resource('bankcontactperson','Bank\BankcontacpersonController');
+Route::resource('bankcontactpersonchild','Bank\bankcontactpersonchildController');
+Route::resource('bankcontactpersonchild','Bank\bankcontactpersonchildController');
+Route::resource('fileuploadController','Bank\fileuploadController');
+
 

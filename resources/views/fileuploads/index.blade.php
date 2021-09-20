@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('bankcontactperson.store') }}" method="POST">
+                    <form action="{{ route('fileuploadController.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         {{-- <div class="form-group">
@@ -115,7 +115,10 @@
                             @enderror
                         </div> --}}
 
-                        <div class="form-group">
+                        {{-- 
+                            
+                            //uncomment bellow
+                            <div class="form-group">
                             <label for="bank_contactperson_name">bank_contactperson_name</label>
                             <input type="text" name="bank_contactperson_name" class="form-control @error('bank_contactperson_name') is-invalid @enderror" value="{{ old('bank_contactperson_name', '' ) }} "/>
                             @error('bank_contactperson_name')
@@ -175,7 +178,7 @@
                             @enderror
                         </div> --}}
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="bank_contactperson_branch">bank_contactperson_branch</label>
                             <input type="text" name="bank_contactperson_branch" class="form-control @error('bank_contactperson_branch') is-invalid @enderror" value="{{ old('bank_contactperson_branch', '' ) }} "/>
                             @error('bank_contactperson_branch')
@@ -223,16 +226,11 @@
                                     <strong>{{ $message }} </strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div>  --}}
 
                         <div class="form-group">
-                            <label for="password">password</label>
-                            <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password', '' ) }} "/>
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }} </strong>
-                                </span>
-                            @enderror
+                            <label for="password">Upload Files</label>
+                            <input type="file" name="filenames[]" class="form-control"  multiple="multiple">
                         </div>
 
                         <button class="btn btn-primary">Add</button>
@@ -244,3 +242,5 @@
     </div>
 </div>
 @endsection
+
+

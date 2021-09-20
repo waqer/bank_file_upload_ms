@@ -21,9 +21,8 @@ class BankinfoController extends Controller
     {
         //
         $client_id=Session::get('client_id');
-        $contact_persons=Applicationuser::where('is_bank', 1)
-        ->where('client_id', $client_id)
-       // ->where('is_parent', 1)
+        $contact_persons=Applicationuser::where('client_id', $client_id)
+        ->where('is_parent', 1)
         ->paginate(10);
 
         return view('bank.index', [
@@ -52,7 +51,6 @@ class BankinfoController extends Controller
     {
         //
 
-        
 
         $session_user=Session::get('user_id');
 

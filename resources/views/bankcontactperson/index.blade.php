@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">List Of Admins
+                <div class="card-header">List Of Childs
 
-                    <a href=" {{ route('Admin.create') }}" class="float-right">Add Admin</a>
+                    <a href=" {{ route('bankcontactpersonchild.create') }}" class="float-right">Add Child</a>
                 </div>
                
                 <div class="card-body ">

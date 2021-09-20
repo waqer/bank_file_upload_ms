@@ -21,6 +21,14 @@ class BankcontacpersonController extends Controller
     public function index()
     {
         //
+        $client_id=Session::get('client_id');
+        $contact_persons=Applicationuser::where('client_id', $client_id)
+        ->where('is_child', 1)
+        ->paginate(10);
+
+        return view('bankcontactperson.index', [
+            'results' => $contact_persons
+        ]);
     }
 
     /**
@@ -48,11 +56,11 @@ class BankcontacpersonController extends Controller
         
        // dd($request->all());
         $session_user=Session::get('user_id');
+        $session_client_id=Session::get('client_id');
 
-        
         $data=([
-            'password' => Hash::make($request->password),
-            'is_bank' => 1,
+            'password' => $request->password,
+            'is_parent' => 1,
             'is_active_status' => $request->is_active_status,
             'created_by' =>$session_user,
             'edited_by' =>$session_user,
@@ -60,24 +68,24 @@ class BankcontacpersonController extends Controller
 
                 //**Admin part***//
 
-            "bank_name" => $request->bank_name,
-            "client_id" => $request->client_id,
             "bank_contactperson_name" => $request->bank_contactperson_name,
-            "reg_no" => $request->reg_no,
-            "bank_location" => $request->bank_location,
-            "bank_website" => $request->bank_website,
-            "bank_fax" => $request->bank_fax,
-            "bank_phone" => $request->bank_phone,
-            "bank_email" => $request->bank_email,
-
-            "bank_contactperson_userid" => $request->bank_contactperson_userid, // later
+            "client_id" => $session_client_id,
             "bank_contactperson_phone" => $request->bank_contactperson_phone,
             "bank_contactperson_email" => $request->bank_contactperson_email,
-            "bank_contactperson_designation" => $request->bank_contactperson_designation, 
+            "bank_contactperson_designation" => $request->bank_contactperson_designation,
             "bank_contactperson_department" => $request->bank_contactperson_department,
             "bank_contactperson_nid" => $request->bank_contactperson_nid,
             "bank_contactperson_branch" => $request->bank_contactperson_branch,
             "bank_contactperson_location" => $request->bank_contactperson_location,
+
+            // "bank_contactperson_userid" => $request->bank_contactperson_userid, // later
+            // "bank_contactperson_phone" => $request->bank_contactperson_phone,
+            // "bank_contactperson_email" => $request->bank_contactperson_email,
+            // "bank_contactperson_designation" => $request->bank_contactperson_designation, 
+            // "bank_contactperson_department" => $request->bank_contactperson_department,
+            // "bank_contactperson_nid" => $request->bank_contactperson_nid,
+            // "bank_contactperson_branch" => $request->bank_contactperson_branch,
+            // "bank_contactperson_location" => $request->bank_contactperson_location,
 
             'remember_token' => Str::random(10),
             "created_at" => now(),    
@@ -99,7 +107,7 @@ class BankcontacpersonController extends Controller
 
        
 
-        return redirect()->route('Admin.index');
+        return redirect()->route('bank.index');
 
     }
 
@@ -145,34 +153,42 @@ class BankcontacpersonController extends Controller
      * @param  \App\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bank_contact_person $bank)
+    public function update(Request $request, $contact_person)
     {
         //
 
-        dd($request->all());
+       // dd($request->all());
         $session_user=Session::get('user_id');
 
         $data=$request->validate([
-            'admin_name' => 'required',
-            'admin_nid' => 'required',
-            'admin_phone_no' => 'required',
-            'admin_email' => 'required',
-            'admin_designation' => 'required',
-            'is_active_status' => 'required',
-            'edited_by' =>$session_user, //pending
-            'authorized_by' => 'required',
+            'bank_contactperson_name' => 'required',
+            'bank_contactperson_phone' => 'required',
+            'bank_contactperson_email' => 'required',
+            'bank_contactperson_designation' => 'required',
+            'bank_contactperson_department' => 'required',
+            'bank_contactperson_nid' => 'required',
+            'bank_contactperson_branch' =>'required', 
+            'bank_contactperson_location' => 'required',
             'password' => 'required',
             
         ]);
+
+        $data_addition=['edited_by' =>$session_user, ];
+        $data=(array_merge($data, $data_addition));
+        
+       // dd($data);
+       
+        // array_push($data,$datax);
+        // dd($data);
         
 
 
   
 
        
-        Applicationuser::where('user_id',$administrator)->update( $data );
+        Applicationuser::where('user_id',$contact_person)->update( $data );
 
-        return redirect()->route('Admin.index')->with('status', 'Story Updated Successfully!');
+        return redirect()->route('bank.index')->with('status', 'Story Updated Successfully!');
 
     }
 
@@ -182,8 +198,10 @@ class BankcontacpersonController extends Controller
      * @param  \App\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bank_contact_person $bank)
+    public function destroy($contact_person)
     {
         //
+        Applicationuser::where('user_id',$contact_person)->delete();
+        return redirect()->route('bankcontactperson.index')->with('status', 'Story Deleted Successfully!');
     }
 }
