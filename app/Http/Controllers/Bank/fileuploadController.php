@@ -6,6 +6,7 @@ use App\Fileupload;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+
 class fileuploadController extends Controller
 {
     /**
@@ -38,27 +39,56 @@ class fileuploadController extends Controller
     public function store(Request $request)
     {
         //
-        
-        
-$this->validate($request, [
-    'filenames' => 'required',
-    'filenames.*' => 'mimes:doc,pdf,docx,zip'
-]);
 
-if($request->hasfile('filenames'))
-{
-foreach($request->file('filenames') as $file)
-{
+       // dd( storage_path());
+        $request->ip();
+        $_SERVER['SERVER_PORT'];
+        $_SERVER['HTTP_HOST'];
+        $client_id=Session::get('client_id');
+        $destinationPath = public_path();
+        $destination_folder = $client_id;
+        $destination_file_name = $request->file_name;
+     
+        $doc_id=$request->do_cid;
+        $data=([
+            'client_id' => $client_id,
+            'doc_id' => $request->doc_id,
+            'file_name' => $request->file_name,
+            'remote_ip_address' => $request->ip(),
+            'source_path' => storage_path(),
+            'destination_path' => $destinationPath,
+            'destination_folder' => $destination_folder,
+            'destination_file_name' => $destination_file_name,
+            'server_id' => $_SERVER['HTTP_HOST'],
+            'mime_type' => $request->file_name,
+            'port_no' => $_SERVER['SERVER_PORT'],
+            'remarks' => $request->file_name,
+            'status' => $request->file_name,
+            "created_at" => now(),  
+            "updated_at" => now(),  
+        ]);
 
-    $fileOriginalName= $file->getClientOriginalName();
-   // $name = time().'.'.$file->extension();
-    $fileName = time().'.'.$fileOriginalName;
-    $file->move(public_path().'/files/', $fileName);  
-    $data[] = $fileName;  
-}
-}
+      
+  
+        $this->validate($request, [
+             'filenames' => 'required',
+             'filenames.*' => 'mimes:doc,pdf,docx,zip'
+        ]);
 
- $file=json_encode($data);
+    if($request->hasfile('filenames'))
+    {
+    foreach($request->file('filenames') as $file)
+    {
+        $fileOriginalName= $file->getClientOriginalName();
+        // $name = time().'.'.$file->extension();
+        $fileName = time().'.'.$fileOriginalName;
+        // $file->move(public_path().'/files/', $fileName); 
+        $file->move($destinationPath.$destination_folder, $fileName);  
+        $data[] = $fileName;  
+    }
+    }
+
+    $file=json_encode($data);
 
     }
 
