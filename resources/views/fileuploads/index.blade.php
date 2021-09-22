@@ -15,40 +15,10 @@
                     <form action="{{ route('fileuploadController.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        {{-- <div class="form-group">
-                            <label for="bank_name">Bank Name</label>
-                            <input type="text" name="bank_name" class="form-control @error('bank_name') is-invalid @enderror" value="{{ old('bank_name', '' ) }} "/>
-                            @error('bank_name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }} </strong>
-                                </span>
-                            @enderror
-                        </div> --}}
-
-                        {{-- <div class="form-group">
-                            <label for="client_id">client_id</label>
-                            <input type="text" name="client_id" class="form-control @error('client_id') is-invalid @enderror" value="{{ old('client_id', '' ) }}"/>
-                            @error('client_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }} </strong>
-                                </span>
-                            @enderror
-                        </div> --}}
-
-                        {{-- <div class="form-group">
-                            <label for="bank_contactperson_name">bank_contactperson_name</label>
-                            <input type="text" name="bank_contactperson_name" class="form-control @error('bank_contactperson_name') is-invalid @enderror" value="{{ old('bank_contactperson_name', '' ) }}"/>
-                            @error('bank_contactperson_name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }} </strong>
-                                </span>
-                            @enderror
-                        </div> --}}
-
-                        {{-- <div class="form-group">
-                            <label for="reg_no">reg_no</label>
-                            <input type="text" name="reg_no" class="form-control @error('reg_no') is-invalid @enderror" value="{{ old('reg_no', '' ) }}"/>
-                            @error('reg_no')
+                        <div class="form-group">
+                            <label for="file_name">File Name</label>
+                            <input type="text" name="file_name" class="form-control @error('file_name') is-invalid @enderror" value="{{ old('file_name', '' ) }} "/>
+                            @error('file_name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
@@ -56,15 +26,47 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="bank_location">bank_location</label>
-                            <input type="text" name="bank_location" class="form-control @error('bank_location') is-invalid @enderror" value="{{ old('bank_location', '' ) }}"/>
-                            @error('bank_location')
+                            <label for="doc_id">doc_id</label>
+                            <input type="text" name="doc_id" class="form-control @error('doc_id') is-invalid @enderror" value="{{ old('doc_id', '' ) }}"/>
+                            @error('doc_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }} </strong>
                                 </span>
                             @enderror
                         </div>
 
+                        <div class="form-group">
+                            <label for="remarks">remarks</label>
+                            <input type="text" name="remarks" class="form-control @error('remarks') is-invalid @enderror" value="{{ old('remarks', '' ) }}"/>
+                            @error('remarks')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mime_type">mime_type</label>
+                            <input type="text" name="mime_type" class="form-control @error('mime_type') is-invalid @enderror" value="{{ old('mime_type', '' ) }}"/>
+                            @error('mime_type')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                         <div class="form-group">
+                            <label for="status">status</label>
+                            <input type="text" name="status" class="form-control @error('status') is-invalid @enderror" value="{{ old('status', '' ) }}"/>
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                       
+{{--
                         <div class="form-group">
                             <label for="bank_website">bank_website</label>
                             <input type="text" name="bank_website" class="form-control @error('bank_website') is-invalid @enderror" value="{{ old('bank_website', '' ) }}"/>

@@ -19,7 +19,7 @@ class CreateApplicationusersTable extends Migration
             $table->boolean('is_admin')->default(0);
             $table->boolean('is_parent')->default(0);
             $table->boolean('is_bank')->default(0);
-           // $table->string('bank_id')->nullable();
+            $table->boolean('is_child')->default(0);
             $table->boolean('is_active_status')->default(0);
             $table->string('edited_by')->nullable();
             $table->string('created_by');

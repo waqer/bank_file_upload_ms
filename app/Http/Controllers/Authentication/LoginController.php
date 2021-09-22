@@ -44,6 +44,10 @@ class LoginController extends Controller
             return redirect()->route('bankcontactperson.index');
         }
         else{
+
+            Session::put('client_id', $user->client_id);
+            
+           // return redirect()->route('bankcontactperson.index');
             dd("child");
         }
         

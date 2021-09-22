@@ -14,7 +14,7 @@ class CreateFileuploadsTable extends Migration
     public function up()
     {
         Schema::create('fileuploads', function (Blueprint $table) {
-            $table->id();
+            $table->id('upload_id_tracking_no');
             $table->string('client_id')->nullable();
             $table->bigInteger('doc_id')->nullable();
             $table->string('file_name')->nullable();
@@ -23,13 +23,22 @@ class CreateFileuploadsTable extends Migration
             $table->string('destination_path')->nullable();
             $table->string('destination_folder')->nullable();
             $table->string('destination_file_name')->nullable();
+            $table->string('destination_file_ext')->nullable();
             $table->string('server_id')->nullable();   
             $table->string('mime_type')->nullable();
             $table->string('port_no')->nullable();
             $table->string('remarks')->nullable();
             $table->boolean('status')->default(0);
-            $table->timestamps();
-            
+            $table->bigInteger('uploaded_by')->unsigned();
+            $table->bigInteger('edited_by')->unsigned()->nullable();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
+            $table->foreign('uploaded_by')
+             ->references('user_id')->on('applicationusers')
+             ->onDelete('cascade');
+             $table->foreign('edited_by')
+             ->references('user_id')->on('applicationusers')
+             ->onDelete('cascade');
 
         });
     }
@@ -42,5 +51,6 @@ class CreateFileuploadsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('fileuploads');
+        
     }
 }

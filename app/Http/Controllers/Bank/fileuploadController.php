@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Bank;
 use App\Fileupload;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Session;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class fileuploadController extends Controller
 {
@@ -45,11 +47,15 @@ class fileuploadController extends Controller
         $_SERVER['SERVER_PORT'];
         $_SERVER['HTTP_HOST'];
         $client_id=Session::get('client_id');
+        $user_id=Session::get('user_id');
+       // dd($user_id);
         $destinationPath = public_path();
-        $destination_folder = $client_id;
-        $destination_file_name = $request->file_name;
+        $destination_folder = "\bankfiles\\".$client_id."\\";
+        $destination_file_name = $this->clean_file_name($request->file_name);
+        
+       
+
      
-        $doc_id=$request->do_cid;
         $data=([
             'client_id' => $client_id,
             'doc_id' => $request->doc_id,
@@ -58,14 +64,15 @@ class fileuploadController extends Controller
             'source_path' => storage_path(),
             'destination_path' => $destinationPath,
             'destination_folder' => $destination_folder,
-            'destination_file_name' => $destination_file_name,
             'server_id' => $_SERVER['HTTP_HOST'],
-            'mime_type' => $request->file_name,
+            'mime_type' => $request->mime_type,
             'port_no' => $_SERVER['SERVER_PORT'],
-            'remarks' => $request->file_name,
-            'status' => $request->file_name,
+            'remarks' => $request->remarks,
+            'status' => $request->status,
             "created_at" => now(),  
-            "updated_at" => now(),  
+            "updated_at" => now(), 
+            "uploaded_by" => $user_id,
+            
         ]);
 
       
@@ -75,21 +82,43 @@ class fileuploadController extends Controller
              'filenames.*' => 'mimes:doc,pdf,docx,zip'
         ]);
 
+        $count=0;
+        $fileNamenew = array();
     if($request->hasfile('filenames'))
     {
     foreach($request->file('filenames') as $file)
     {
+
         $fileOriginalName= $file->getClientOriginalName();
         // $name = time().'.'.$file->extension();
         $fileName = time().'.'.$fileOriginalName;
+         $fileName = $destination_file_name.'_'.time().".".$count.$file->extension(); 
         // $file->move(public_path().'/files/', $fileName); 
+      
+      
         $file->move($destinationPath.$destination_folder, $fileName);  
-        $data[] = $fileName;  
-    }
+        //$data[] = $fileName;
+        $count++;
+
+        //$fileNamenew=json_encode($fileName);
+        
+      array_push($fileNamenew,$fileName);
     }
 
-    $file=json_encode($data);
+    $fileNamenew=json_encode($fileNamenew);
+    $data_addition=['destination_file_name' =>$fileNamenew ];
 
+    $data=(array_merge($data, $data_addition));
+
+    Fileupload::create($data);
+
+    }
+
+   // $file=json_encode($data);
+
+    // Applicationuser::create($data)->id;
+
+    
     }
 
     /**
@@ -136,4 +165,11 @@ class fileuploadController extends Controller
     {
         //
     }
+
+
+     function clean_file_name($string) {
+        $string = str_replace(' ', '_', $string); // Replaces all spaces with hyphens.
+     
+        return preg_replace('/[^A-Za-z0-9\-]/', '_', $string); // Removes special chars.
+     }
 }
