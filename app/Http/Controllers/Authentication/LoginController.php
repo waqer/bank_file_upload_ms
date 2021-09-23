@@ -47,8 +47,10 @@ class LoginController extends Controller
 
             Session::put('client_id', $user->client_id);
             
-           // return redirect()->route('bankcontactperson.index');
-            dd("child");
+            
+           return redirect()->route('fileupload.index');
+           // dd("child");
+            
         }
         
        }
