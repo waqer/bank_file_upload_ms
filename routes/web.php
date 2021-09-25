@@ -17,9 +17,15 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
 Route::get('/data', 'TestController@test');
 // Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
+
+
 Route::post('/login', 'Authentication\LoginController@index')->name('login');
 Route::resource('Admin','Admin\AdministratorController'); 
 Route::resource('bank','Bank\BankinfoController'); 

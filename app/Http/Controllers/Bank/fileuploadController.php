@@ -171,15 +171,14 @@ class fileuploadController extends Controller
     public function update(Request $request, Fileupload $fileupload)
     {
         //
-
-
-        $session_user=Session::get('user_id');
-
+    
+        $_SERVER['SERVER_PORT'];
+        $_SERVER['HTTP_HOST'];
+        $client_id=Session::get('client_id');
+        $user_id=Session::get('user_id');
         $destinationPath = public_path();
         $destination_folder = "\bankfiles\\".$client_id."\\";
         $destination_file_name = $this->clean_file_name($request->file_name);
-        
-       
 
      
         $data=([
@@ -197,8 +196,7 @@ class fileuploadController extends Controller
             'status' => $request->status,
             "created_at" => now(),  
             "updated_at" => now(), 
-            "uploaded_by" => $user_id,
-            
+            "edited_by" => $user_id,
         ]);
 
       
@@ -207,18 +205,9 @@ class fileuploadController extends Controller
         $count=0;
         $fileNamenew = array();
 
-        $data=$request->validate([
-            'file_name' => 'required',
-            'doc_id' => 'required',
-            'remarks' => 'required',
-            'mime_type' => 'required',
-            'status' => 'required',
-            'filenames' => 'required',
-            'filenames.*' => 'mimes:doc,pdf,docx,zip'
-        ]);
+       
 
-        $data_addition=['edited_by' =>$session_user, ];
-        $data=(array_merge($data, $data_addition));
+
         
        // dd($data);
        
@@ -252,16 +241,16 @@ class fileuploadController extends Controller
 
     $data=(array_merge($data, $data_addition));
 
-    Fileupload::create($data);
+   
 
     }
 
-  
+    //dd($data);
 
-       
-        Applicationuser::update( $data );
+    Fileupload::where('upload_id_tracking_no',$fileupload->upload_id_tracking_no)->update($data);
 
-        return redirect()->route('bank.index')->with('status', 'Story Updated Successfully!');
+
+        return redirect()->route('fileupload.index')->with('status', 'Updated Successfully!');
     }
 
     /**
@@ -270,9 +259,14 @@ class fileuploadController extends Controller
      * @param  \App\Fileupload  $fileupload
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fileupload $fileupload)
+    public function destroy($upload_id_tracking_no)
     {
-        //
+        //// dd($upload_id_tracking_no);
+
+        Fileupload::where('upload_id_tracking_no',$upload_id_tracking_no)->delete();
+        return redirect()->route('fileupload.index')->with('status', 'Story Deleted Successfully!');
+
+
     }
 
 
@@ -283,9 +277,4 @@ class fileuploadController extends Controller
      }
 
 
-     function upload_file($string) {
-        $string = str_replace(' ', '_', $string); // Replaces all spaces with hyphens.
-     
-        return preg_replace('/[^A-Za-z0-9\-]/', '_', $string); // Removes special chars.
-     }
 }

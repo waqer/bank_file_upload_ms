@@ -12,9 +12,10 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('fileupload.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('fileupload.update', [$results]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-
+                        @method('PUT')
+                        
                         <div class="form-group">
                             <label for="file_name">File Name</label>
                             <input type="text" name="file_name" class="form-control @error('file_name') is-invalid @enderror" value="{{ old('file_name', $results->file_name ) }} "/>
