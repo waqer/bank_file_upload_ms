@@ -15,6 +15,32 @@
                     <form action="{{ route('bankcontactpersonchild.store') }}" method="POST">
                         @csrf
 
+
+                        @if(Session::get('user_privilidge')== 0)
+                        <div class="form-group">
+                           <label for="client_id">client_id</label>
+                           <input type="text" name="client_id" class="form-control @error('client_id') is-invalid @enderror" value="{{ old('client_id', '' ) }}"/>
+                           @error('client_id')
+                               <span class="invalid-feedback" role="alert">
+                                   <strong>{{ $message }} </strong>
+                               </span>
+                           @enderror
+                       </div> 
+                       
+                       <div class="form-group">
+                          <label for="parent_id">parent_id</label>
+                          <input type="text" name="parent_id" class="form-control @error('parent_id') is-invalid @enderror" value="{{ old('parent_id', '' ) }}"/>
+                          @error('parent_id')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }} </strong>
+                              </span>
+                          @enderror
+                      </div> 
+                      @endif
+
+                      
+                  
+
                         <div class="form-group">
                             <label for="child_contactperson_name">child_contactperson_name</label>
                             <input type="text" name="child_contactperson_name" class="form-control @error('child_contactperson_name') is-invalid @enderror" value="{{ old('child_contactperson_name', '' ) }} "/>

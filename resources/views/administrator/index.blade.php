@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">List Of Admins
 
-                    <a href=" {{ route('Admin.create') }}" class="float-right">Add Admin</a>
+                    {{-- <a href=" {{ url()->previous() }}" class="float-right">Back</a>  --}}
                 </div>
                
                 <div class="card-body ">
@@ -76,11 +76,7 @@
                     </table>
 
                     {{ $results->links() }}
-                    <div class="d-flex justify-content-center">
-
-                        <a href="{{ route('bank.create') }}" class="btn btn-primary">ADD Bank</a>
-                      </div>
-                   
+                                      
                 </div>
             </div>
         </div>

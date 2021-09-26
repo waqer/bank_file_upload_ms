@@ -63,7 +63,7 @@ class CreateApplicationusersTable extends Migration
             $table->string('bank_contactperson_department')->nullable();
             $table->string('bank_contactperson_nid')->nullable();
             $table->string('bank_contactperson_branch')->nullable();
-            $table->string('bank_contactperson_location')->default(0);
+            $table->string('bank_contactperson_location')->nullable();
            // $table->string('bank_contactperson_status')->default(0);
             
             // $table->bigInteger('created_by')->unsigned();;
@@ -81,7 +81,7 @@ class CreateApplicationusersTable extends Migration
             $table->string('child_contactperson_department')->nullable();
             $table->string('child_contactperson_nid')->nullable();
             $table->string('child_contactperson_branch')->nullable();
-            $table->string('child_contactperson_location')->default(0);
+            $table->string('child_contactperson_location')->nullable();
            // $table->string('child_contactperson_status')->default(0);
 
 

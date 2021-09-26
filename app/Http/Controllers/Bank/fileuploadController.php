@@ -123,6 +123,9 @@ class fileuploadController extends Controller
 
     Fileupload::create($data);
 
+
+    return redirect()->route('fileupload.index')->with('status', 'Updated Successfully!');
+
     }
 
 

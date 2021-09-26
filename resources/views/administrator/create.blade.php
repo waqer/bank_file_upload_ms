@@ -8,7 +8,7 @@
                 <div class="card-header">
                     Add Admin
 
-                    <a href=" {{ route('Admin.index') }}" class="float-right">Back</a>
+                    <a href=" {{ url()->previous() }}" class="float-right">Back</a> 
                 </div>
 
                 <div class="card-body">

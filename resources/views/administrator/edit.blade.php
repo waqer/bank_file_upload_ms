@@ -6,9 +6,10 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Add Admin
+                    Edit an Admin
 
-                    <a href=" {{ route('Admin.index') }}" class="float-right">Back</a>
+                 
+                   <a href=" {{ url()->previous() }}" class="float-right">Back</a> 
                 </div>
 
                 <div class="card-body">

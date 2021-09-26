@@ -8,7 +8,7 @@
                 <div class="card-header">
                     Add Bank
 
-                    <a href=" {{ route('bank.index') }}" class="float-right">Bank List</a>
+                    <a href=" {{ url()->previous() }}" class="float-right">Back</a> 
                 </div>
 
                 <div class="card-body">

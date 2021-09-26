@@ -8,7 +8,7 @@
                 <div class="card-header">
                     Add Bank
 
-                    <a href=" {{ route('bank.index') }}" class="float-right">Bank List</a>
+                    <a href=" {{ url()->previous() }}" class="float-right">Back</a> 
                 </div>
 
                 <div class="card-body">
@@ -24,8 +24,8 @@
                                 </span>
                             @enderror
                         </div> --}}
-
-                        {{-- <div class="form-group">
+                        @if(Session::get('user_privilidge')== 0)
+                         <div class="form-group">
                             <label for="client_id">client_id</label>
                             <input type="text" name="client_id" class="form-control @error('client_id') is-invalid @enderror" value="{{ old('client_id', '' ) }}"/>
                             @error('client_id')
@@ -33,7 +33,8 @@
                                     <strong>{{ $message }} </strong>
                                 </span>
                             @enderror
-                        </div> --}}
+                        </div> 
+                        @endif
 
                         {{-- <div class="form-group">
                             <label for="bank_contactperson_name">bank_contactperson_name</label>

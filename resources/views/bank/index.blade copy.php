@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Bank Contact Persons
+                <div class="card-header">List Of Contact person lists
 
-                    {{-- <a href=" {{ route('bankcontactpersonchild.create') }}" class="float-right">Add Child</a> --}}
+                    <a href=" {{ route('bankcontactperson.create') }}" class="float-right">Add Contact Person</a>
                 </div>
                
                 <div class="card-body ">
@@ -17,19 +17,15 @@
                             <tr>
 
                                 <th>ID</th>
-                                @if(Session::get('user_privilidge')== 0)
-                                <th>Client ID</th>
-                                @endif
-                                <th>  name</th>
-                                <th>  phone</th>
-                                <th>  email</th>
-                                <th>  designation</th>
-                                <th>  department</th>
-                                <th>  nid</th>
-                                <th>  branch</th>
-                                <th>  location</th>
-                                <th>  edited_by</th>
-                                <th>status</th>
+                                <th>bank_contactperson_name</th>
+                                <th>client_id</th>
+                                <th>bank_contactperson_phone</th>
+                                <th>bank_contactperson_email</th>
+                                <th>bank_contactperson_designation</th>
+                                <th>bank_contactperson_department</th>
+                                <th>bank_contactperson_nid</th>
+                                <th>bank_contactperson_branch</th>
+                                <th>bank_contactperson_location</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -40,13 +36,11 @@
                                     <td>
                                         {{ $result->user_id }}
                                     </td>
-                                        @if(Session::get('user_privilidge')== 0)
-                                        <td>
-                                            {{ $result->client_id }}
-                                        </td>
-                                      @endif
                                     <td>
-                                        {{ $result->bank_contactperson_name}}
+                                        {{ $result->bank_contactperson_name }}
+                                    </td>
+                                    <td>
+                                        {{ $result->client_id}}
                                     </td>
                                     <td>
                                         {{ $result->bank_contactperson_phone}}
@@ -70,14 +64,7 @@
                                     <td>
                                         {{ $result->bank_contactperson_location}}
                                     </td>
-                                  
-                                    <td>
-                                        {{ $result->edited_by}}
-                                    </td>
-                                    
-                                    <td>
-                                        {{ $result->is_active_status}}
-                                    </td>
+                                   
                                     
                                    
                                     <td>
@@ -94,7 +81,10 @@
                     </table>
 
                     {{ $results->links() }}
-                   
+                    <div class="d-flex justify-content-center">
+
+                        <a href="{{ route('bank.create') }}" class="btn btn-primary">ADD Sub Bank User</a>
+                      </div>
                    
                 </div>
             </div>

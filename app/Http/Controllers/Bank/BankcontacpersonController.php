@@ -21,10 +21,28 @@ class BankcontacpersonController extends Controller
     public function index()
     {
         //
+      
         $client_id=Session::get('client_id');
-        $contact_persons=Applicationuser::where('client_id', $client_id)
-        ->where('is_child', 1)
-        ->paginate(10);
+  
+
+        if(Session::get('user_privilidge')<1){
+
+            $contact_persons=Applicationuser::where('is_parent', 1)
+              ->paginate(10);
+              
+        }
+
+        else{
+   
+            $contact_persons=Applicationuser::where('is_parent', 1)
+            ->where('client_id', $client_id)
+            ->paginate(10);
+        }
+        
+        
+
+
+
 
         return view('bankcontactperson.index', [
             'results' => $contact_persons
@@ -91,6 +109,11 @@ class BankcontacpersonController extends Controller
             "created_at" => now(),    
         ]);
 
+
+        if(Session::get('user_privilidge')== 0){
+            $data_addition=['client_id' =>$request->client_id];
+             $data=(array_merge($data, $data_addition));
+        }
      
         $new_user_id=Applicationuser::create($data)->id;
 
@@ -107,7 +130,7 @@ class BankcontacpersonController extends Controller
 
        
 
-        return redirect()->route('bank.index');
+        return redirect()->route('bankcontactperson.index');
 
     }
 
@@ -188,7 +211,7 @@ class BankcontacpersonController extends Controller
        
         Applicationuser::where('user_id',$contact_person)->update( $data );
 
-        return redirect()->route('bank.index')->with('status', 'Story Updated Successfully!');
+        return redirect()->route('bankcontactperson.index')->with('status', 'Added Successfully!');
 
     }
 

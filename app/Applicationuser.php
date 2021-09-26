@@ -9,4 +9,5 @@ class Applicationuser extends Model
     //
 
     protected $guarded = [];
+    protected $primaryKey = 'user_id';
 }

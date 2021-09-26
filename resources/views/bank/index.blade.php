@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">List Of Contact person lists
+                <div class="card-header">List Of Banks
 
-                    <a href=" {{ route('bankcontactperson.create') }}" class="float-right">Add Contact Person</a>
+                    {{-- <a href=" {{ route('bankcontactperson.create') }}" class="float-right">Add Contact Person</a> --}}
                 </div>
                
                 <div class="card-body ">
@@ -17,15 +17,16 @@
                             <tr>
 
                                 <th>ID</th>
-                                <th>bank_contactperson_name</th>
-                                <th>client_id</th>
-                                <th>bank_contactperson_phone</th>
-                                <th>bank_contactperson_email</th>
-                                <th>bank_contactperson_designation</th>
-                                <th>bank_contactperson_department</th>
-                                <th>bank_contactperson_nid</th>
-                                <th>bank_contactperson_branch</th>
-                                <th>bank_contactperson_location</th>
+                                <th>Bank Name</th>
+                                <th>Client ID</th>
+                                <th>Reg no</th>
+                                <th>Bank location</th>
+                                <th>bank website</th>
+                                <th>bank fax</th>
+                                <th>bank phone</th>
+                                <th>bank email</th>
+                                <th>status</th>
+                                <th>Authorized By</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -37,39 +38,42 @@
                                         {{ $result->user_id }}
                                     </td>
                                     <td>
-                                        {{ $result->bank_contactperson_name }}
+                                        {{ $result->bank_name }}
                                     </td>
                                     <td>
                                         {{ $result->client_id}}
                                     </td>
                                     <td>
-                                        {{ $result->bank_contactperson_phone}}
+                                        {{ $result->reg_no}}
                                     </td>
                                     <td>
-                                        {{ $result->bank_contactperson_email}}
+                                        {{ $result->bank_location}}
                                     </td>
                                     <td>
-                                        {{ $result->bank_contactperson_designation}}
+                                        {{ $result->bank_website}}
                                     </td>
                                     <td>
-                                        {{ $result->bank_contactperson_department}}
+                                        {{ $result->bank_fax}}
                                     </td>
                                     
                                     <td>
-                                        {{ $result->bank_contactperson_nid}}
+                                        {{ $result->bank_phone}}
                                     </td>
                                     <td>
-                                        {{ $result->bank_contactperson_branch}}
+                                        {{ $result->bank_email}}
                                     </td>
                                     <td>
-                                        {{ $result->bank_contactperson_location}}
+                                        {{ $result->is_active_status}}
+                                    </td>
+                                    <td>
+                                        {{ $result->authorized_by}}
                                     </td>
                                    
                                     
                                    
                                     <td>
-                                        <a href="{{ route('bankcontactperson.edit', [$result->user_id] ) }}" class="btn btn-secondary">Edit</a>                          
-                                        <form action=" {{ route('bankcontactperson.destroy', [$result->user_id]) }}" method="POST" style="display:inline-block">
+                                        <a href="{{ route('bank.edit', [$result->user_id] ) }}" class="btn btn-secondary">Edit</a>                          
+                                        <form action=" {{ route('bank.destroy', [$result->user_id]) }}" method="POST" style="display:inline-block">
                                             @method('DELETE')
                                             @csrf
                                             <button class="btn btn-sm btn-danger">Delete</button>
@@ -81,10 +85,7 @@
                     </table>
 
                     {{ $results->links() }}
-                    <div class="d-flex justify-content-center">
-
-                        <a href="{{ route('bank.create') }}" class="btn btn-primary">ADD Sub Bank User</a>
-                      </div>
+                   
                    
                 </div>
             </div>

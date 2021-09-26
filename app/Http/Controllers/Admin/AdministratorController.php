@@ -86,7 +86,7 @@ class AdministratorController extends Controller
 
        
 
-        return redirect()->route('Admin.index');
+        return view('dashboard');
 
     }
 
@@ -154,7 +154,7 @@ class AdministratorController extends Controller
        
         Applicationuser::where('user_id',$administrator)->update( $data );
 
-        return redirect()->route('Admin.index')->with('status', 'Story Updated Successfully!');
+        return redirect()->route('Admin.index')->with('status', 'Updated Successfully!');
     }
 
     /**
@@ -168,7 +168,7 @@ class AdministratorController extends Controller
         //
    
         Applicationuser::where('user_id',$administrator)->delete();
-        return redirect()->route('Admin.index')->with('status', 'Story Deleted Successfully!');
+        return redirect()->route('Admin.index')->with('status', 'Deleted Successfully!');
 
     }
 }

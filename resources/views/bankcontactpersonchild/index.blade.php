@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">List Of Admins
+                <div class="card-header">Sub Banks
 
-                    <a href=" {{ route('Admin.create') }}" class="float-right">Add Admin</a>
+                    {{-- <a href=" {{ route('bankcontactpersonchild.create') }}" class="float-right">Add Child</a> --}}
                 </div>
                
                 <div class="card-body ">
@@ -17,14 +17,19 @@
                             <tr>
 
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>NID</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Designation</th>
-                                <th>Status</th>
-                                <th>Edited By</th>
-                                <th>Created BY</th>
+                                @if(Session::get('user_privilidge')== 0)
+                                <th>Client ID</th>
+                                @endif
+                                <th>  name</th>
+                                <th>  phone</th>
+                                <th>  email</th>
+                                <th>  designation</th>
+                                <th>  department</th>
+                                <th>  nid</th>
+                                <th>  branch</th>
+                                <th>  location</th>
+                                <th>  edited_by</th>
+                                <th>status</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -35,36 +40,48 @@
                                     <td>
                                         {{ $result->user_id }}
                                     </td>
+                                        @if(Session::get('user_privilidge')== 0)
+                                        <td>
+                                            {{ $result->client_id }}
+                                        </td>
+                                      @endif
                                     <td>
-                                        {{ $result->admin_name}}
+                                        {{ $result->child_contactperson_name}}
                                     </td>
                                     <td>
-                                        {{ $result->admin_nid}}
+                                        {{ $result->child_contactperson_phone}}
                                     </td>
                                     <td>
-                                        {{ $result->admin_phone_no}}
+                                        {{ $result->child_contactperson_email}}
                                     </td>
                                     <td>
-                                        {{ $result->admin_email}}
+                                        {{ $result->child_contactperson_designation}}
                                     </td>
                                     <td>
-                                        {{ $result->admin_designation}}
+                                        {{ $result->child_contactperson_department}}
+                                    </td>
+                                    
+                                    <td>
+                                        {{ $result->child_contactperson_nid}}
+                                    </td>
+                                    <td>
+                                        {{ $result->child_contactperson_branch}}
+                                    </td>
+                                    <td>
+                                        {{ $result->child_contactperson_location}}
+                                    </td>
+                                  
+                                    <td>
+                                        {{ $result->edited_by}}
                                     </td>
                                     
                                     <td>
                                         {{ $result->is_active_status}}
                                     </td>
-                                    <td>
-                                        {{ $result->edited_by}}
-                                    </td>
-                                    <td>
-                                        {{ $result->created_by}}
-                                    </td>
                                     
-                                   
                                     <td>
-                                        <a href="{{ route('Admin.edit', [$result->user_id] ) }}" class="btn btn-secondary">Edit</a>                          
-                                        <form action=" {{ route('Admin.destroy', [$result->user_id]) }}" method="POST" style="display:inline-block">
+                                        <a href="{{ route('bankcontactpersonchild.edit', [$result->user_id] ) }}" class="btn btn-secondary">Edit</a>                          
+                                        <form action=" {{ route('bankcontactpersonchild.destroy', [$result->user_id]) }}" method="POST" style="display:inline-block">
                                             @method('DELETE')
                                             @csrf
                                             <button class="btn btn-sm btn-danger">Delete</button>
@@ -76,10 +93,7 @@
                     </table>
 
                     {{ $results->links() }}
-                    <div class="d-flex justify-content-center">
-
-                        <a href="{{ route('bank.create') }}" class="btn btn-primary">ADD Bank</a>
-                      </div>
+                   
                    
                 </div>
             </div>

@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 </head>
 <body>
     <div id="app">
@@ -74,6 +75,13 @@
 
         <main class="py-4">
             @yield('content')
+
+            <div class="d-flex justify-content-center">
+                <a  href="{{ url('/dashboard') }}" class="btn btn-dark">
+                    <i class="fa fa-arrow-circle-o"></i>
+                    Dashboard
+                </a>
+              </div>
         </main>
     </div>
 </body>
