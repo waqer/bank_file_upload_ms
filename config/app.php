@@ -54,8 +54,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-   // 'asset_url' => env('ASSET_URL', null),
-    'asset_url' => 'http://localhost/bank_file_upload_ms/public',
+    'asset_url' => env('ASSET_URL', null),
+    //'asset_url' => 'http://localhost/bank_file_upload_ms/public',
 
     /*
     |--------------------------------------------------------------------------

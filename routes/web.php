@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('index');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
@@ -33,5 +34,11 @@ Route::resource('bankcontactperson','Bank\BankcontacpersonController');
 Route::resource('bankcontactpersonchild','Bank\bankcontactpersonchildController');
 Route::resource('bankcontactpersonchild','Bank\bankcontactpersonchildController');
 Route::resource('fileupload','Bank\fileuploadController');
+
+
+// Route::get('/bankfiles', function(){
+//     return abort(404);
+//  });
+
 
 

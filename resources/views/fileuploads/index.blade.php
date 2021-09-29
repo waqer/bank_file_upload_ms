@@ -62,13 +62,13 @@
                                     
                                     <td>
 
-                                        <a href="{{ URL::to( 'public'.$result->destination_folder.$result->destination_file_name.
-                                            $result->destination_file_ext)  }}" target="_blank">{{'File'}}</a>
-                                        
-                                        {{ 
-                                        $result->destination_folder.
-                                        $result->destination_file_name.
-                                        $result->destination_file_ext}}
+                                        <!-- <a href="{{ URL::to( 'public'.$result->destination_folder.$result->destination_file_name.
+                                            $result->destination_file_ext)  }}" target="_blank">View</a> -->
+
+                                            <a download="{{$result->destination_file_name}}" href="{{URL::to($result->destination_folder.$result->destination_file_name.
+                                            $result->destination_file_ext)}}" target="_blank">View</a>
+               
+
                                     </td>
 
                                     <td>

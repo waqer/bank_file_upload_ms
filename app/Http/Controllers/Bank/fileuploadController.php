@@ -67,13 +67,23 @@ class fileuploadController extends Controller
         //
 
        // dd( storage_path());
-        $request->ip();
-        $_SERVER['SERVER_PORT'];
-        $_SERVER['HTTP_HOST'];
-        $client_id=Session::get('client_id');
-        $user_id=Session::get('user_id');
+      //  $request->ip();
+       // $_SERVER['SERVER_PORT'];
+       // $_SERVER['HTTP_HOST'];
+
+       if(Session::get('user_privilidge')== 0){
+        $client_id=$request->client_id;
+       }
+        else{
+            $client_id=Session::get('client_id');
+        }
+        
+        $user_id=Session::get('user_id'); 
+
+        $book['uuid'] = (string)Uuid::generate();
+        
         $destinationPath = public_path();
-        $destination_folder = "\bankfiles\\".$client_id."\\";
+        $destination_folder = "bankfiles\\".$client_id."\\";
         $destination_file_name = $this->clean_file_name($request->file_name);
         
        
@@ -119,7 +129,7 @@ class fileuploadController extends Controller
         // $file->move(public_path().'/files/', $fileName); 
       
       
-        $file->move($destinationPath.$destination_folder, $fileName);  
+        $file->move($destinationPath."\\".$destination_folder, $fileName);  
         //$data[] = $fileName;
         $count++;
 
@@ -196,7 +206,7 @@ class fileuploadController extends Controller
         $client_id=$fileupload->client_id;
         $user_id=Session::get('user_id');
         $destinationPath = public_path();
-        $destination_folder = "\bankfiles\\".$client_id."\\";
+        $destination_folder = "bankfiles\\".$client_id."\\";
         $destination_file_name = $this->clean_file_name($request->file_name);
 
      
@@ -246,7 +256,7 @@ class fileuploadController extends Controller
         // $file->move(public_path().'/files/', $fileName); 
       
       
-        $file->move($destinationPath.$destination_folder, $fileName);  
+        $file->move($destinationPath."\\".$destination_folder, $fileName);  
         //$data[] = $fileName;
         $count++;
 
@@ -259,10 +269,10 @@ class fileuploadController extends Controller
  
     $data_addition=['destination_file_name' =>$fileName ];
     $data=(array_merge($data, $data_addition));
-    if(Session::get('user_privilidge')== 0){
-        $data_addition=['client_id' =>$request->client_id ];
-         $data=(array_merge($data, $data_addition));
-    }
+    // if(Session::get('user_privilidge')== 0){
+    //     $data_addition=['client_id' =>$request->client_id ];
+    //      $data=(array_merge($data, $data_addition));
+    // }
 
  
 

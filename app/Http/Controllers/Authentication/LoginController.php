@@ -23,7 +23,7 @@ class LoginController extends Controller
 
        if ($user === null) {             
         dd("invalid");
-        
+      //  return redirect()->route('/');
          }
        else{
         Session::put('user_id', $user_id);

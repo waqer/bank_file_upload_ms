@@ -40,7 +40,9 @@
                   <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
                     <div class="card-header">Bank</div>
                     <div class="card-body">
+                    @if(Session::get('user_privilidge')== 0)
                       <a href="{{ route('bank.create') }}" class="btn btn-dark">Add Bank</a>
+                    @endif
                       <a href="{{ route('bank.index') }}" class="btn btn-dark offset-md-2" style="margin-top: 2%;">View Banks</a>
                     </div>
                   </div>
@@ -51,7 +53,10 @@
                   <div class="card text-white bg-secondary mb-3 offset-md-1" style="max-width: 18rem;">
                     <div class="card-header">Contact Person</div>
                     <div class="card-body">
-                      <a href="{{ route('bankcontactperson.create') }}" class="btn btn-dark " >Add Contact Person</a>
+
+                    @if(Session::get('user_privilidge')<= 1)
+                      <a href="{{ route('bankcontactperson.create') }}" class="btn btn-dark "  >Add Contact Person</a>
+                      @endif
                       <a href="{{ route('bankcontactperson.index') }}" class="btn btn-dark offset-md-2" style="margin-top: 2%;">View Contact Persons</a>
                     </div>
                   </div>
@@ -62,7 +67,11 @@
                   <div class="card bg-light mb-3 offset-md-1" style="max-width: 18rem;">
                     <div class="card-header">Child</div>
                     <div class="card-body">
+                  
+                      @if(Session::get('user_privilidge')<= 2)
                       <a href="{{ route('bankcontactpersonchild.create') }}" class="btn btn-dark " >Add Child Person</a>
+                      @endif
+
                       <a href="{{ route('bankcontactpersonchild.index') }}" class="btn btn-dark offset-md-2" style="margin-top: 2%;">View Child Persons</a>
                     </div>
                   </div>
