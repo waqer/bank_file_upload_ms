@@ -25,6 +25,18 @@
                             @enderror
                         </div>
 
+                        @if(Session::get('user_privilidge')== 0)
+                        <div class="form-group">
+                            <label for="client_id">client_id</label>
+                            <input type="text" name="client_id" class="form-control @error('client_id') is-invalid @enderror" value="{{ old('client_id', '' ) }}"/>
+                            @error('client_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }} </strong>
+                                </span>
+                            @enderror
+                        </div>
+                        @endif
+
                         <div class="form-group">
                             <label for="doc_id">doc_id</label>
                             <input type="text" name="doc_id" class="form-control @error('doc_id') is-invalid @enderror" value="{{ old('doc_id', '' ) }}"/>

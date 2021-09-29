@@ -23,34 +23,38 @@ class LoginController extends Controller
 
        if ($user === null) {             
         dd("invalid");
+        
          }
        else{
         Session::put('user_id', $user_id);
 
         if($user['is_admin']==1){
             Session::put('user_privilidge', 0);
-            return redirect()->route('Admin.index');
+            return view('dashboard');
+           // return redirect()->route('Admin.index');
            
         }
 
         else if($user['is_bank']==1){
             Session::put('user_privilidge', 1);
             Session::put('client_id', $user->client_id);
-            return redirect()->route('bank.index');
+            return view('dashboard');
+            //return redirect()->route('bank.index');
         }
 
         else if($user['is_parent']==1){
             Session::put('user_privilidge', 2);
             Session::put('client_id', $user->client_id);
+            return view('dashboard');
             
-            return redirect()->route('bankcontactperson.index');
+           // return redirect()->route('bankcontactperson.index');
         }
         else{
             Session::put('user_privilidge', 3);
             Session::put('client_id', $user->client_id);
             
-            
-           return redirect()->route('fileupload.index');
+            return view('dashboard');
+          // return redirect()->route('fileupload.index');
            // dd("child");
             
         }

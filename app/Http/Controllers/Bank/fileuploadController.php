@@ -21,10 +21,22 @@ class fileuploadController extends Controller
         //
         $client_id=Session::get('client_id');
         $user_id=Session::get('user_id');
+        $priority_order=Session::get('user_privilidge');
 
+        if($priority_order== 0){
+            $files=Fileupload::paginate(10);
+        }
+
+        elseif($priority_order< 3){
+            $files=Fileupload::where('client_id', $client_id)
+            ->paginate(10);
+        }
+
+        else{
         $files=Fileupload::where('client_id', $client_id)
         ->where('uploaded_by', $user_id)
         ->paginate(10);
+        }
 
         return view('fileuploads.index', [
             'results' => $files
@@ -111,15 +123,20 @@ class fileuploadController extends Controller
         //$data[] = $fileName;
         $count++;
 
-        //$fileNamenew=json_encode($fileName);
+        //$fileNamenew=json_encode($fileName); for multiple
         
-      array_push($fileNamenew,$fileName);
+     // array_push($fileNamenew,$fileName); for multiple
     }
 
-    $fileNamenew=json_encode($fileNamenew);
-    $data_addition=['destination_file_name' =>$fileNamenew ];
-
+  //  $fileNamenew=json_encode($fileNamenew); for multiple
+    $data_addition=['destination_file_name' =>$fileName ];
     $data=(array_merge($data, $data_addition));
+
+    if(Session::get('user_privilidge')== 0){
+        $data_addition=['client_id' =>$request->client_id ];
+        
+    $data=(array_merge($data, $data_addition));
+    }
 
     Fileupload::create($data);
 
@@ -161,7 +178,6 @@ class fileuploadController extends Controller
             'results' => $fileupload
         ]);
  
-
     }
 
     /**
@@ -177,7 +193,7 @@ class fileuploadController extends Controller
     
         $_SERVER['SERVER_PORT'];
         $_SERVER['HTTP_HOST'];
-        $client_id=Session::get('client_id');
+        $client_id=$fileupload->client_id;
         $user_id=Session::get('user_id');
         $destinationPath = public_path();
         $destination_folder = "\bankfiles\\".$client_id."\\";
@@ -236,13 +252,19 @@ class fileuploadController extends Controller
 
         //$fileNamenew=json_encode($fileName);
         
-      array_push($fileNamenew,$fileName);
+     // array_push($fileNamenew,$fileName); formultiple
     }
 
-    $fileNamenew=json_encode($fileNamenew);
-    $data_addition=['destination_file_name' =>$fileNamenew ];
-
+  //  $fileNamenew=json_encode($fileNamenew); formultiple
+ 
+    $data_addition=['destination_file_name' =>$fileName ];
     $data=(array_merge($data, $data_addition));
+    if(Session::get('user_privilidge')== 0){
+        $data_addition=['client_id' =>$request->client_id ];
+         $data=(array_merge($data, $data_addition));
+    }
+
+ 
 
    
 

@@ -25,7 +25,7 @@
                                 <th>status</th>
                                 <th>Edited By</th>
                                 <th>Uploaded BY</th>
-                                
+                                <th>File</th>
                                 <th>Action</th>
                                 
                             </tr>
@@ -60,7 +60,17 @@
                                         {{ $result->uploaded_by}}
                                     </td>
                                     
-                                   
+                                    <td>
+
+                                        <a href="{{ URL::to( 'public'.$result->destination_folder.$result->destination_file_name.
+                                            $result->destination_file_ext)  }}" target="_blank">{{'File'}}</a>
+                                        
+                                        {{ 
+                                        $result->destination_folder.
+                                        $result->destination_file_name.
+                                        $result->destination_file_ext}}
+                                    </td>
+
                                     <td>
                                         <a href="{{ route('fileupload.edit', [$result->upload_id_tracking_no] ) }}" class="btn btn-secondary">Edit</a>                          
                                         <form action=" {{ route('fileupload.destroy', [$result->upload_id_tracking_no]) }}" method="POST" style="display:inline-block">
